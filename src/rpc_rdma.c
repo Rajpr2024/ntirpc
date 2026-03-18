@@ -1846,8 +1846,7 @@ rpc_rdma_ncreatef(const struct rpc_rdma_attr *xa,
 	}
 
 	__warnx(TIRPC_DEBUG_FLAG_EVENT | TIRPC_DEBUG_FLAG_RPC_RDMA,
-		"%s() RDMA: NFS/RDMA transport ready on port %s"
-		" recvsz=%llu sendsz=%llu xprt=%p",
+		"%s() RDMA: NFS/RDMA transport ready on port %s recvsz=%llu sendsz=%llu xprt=%p",
 		__func__, xa->port,
 		(unsigned long long)rdma_xprt->sm_dr.recvsz,
 		(unsigned long long)rdma_xprt->sm_dr.sendsz,
@@ -2192,10 +2191,9 @@ rpc_rdma_bind_server(RDMAXPRT *rdma_xprt)
 
 	rdma_xprt->state = RDMAXS_LISTENING;
 
-	/* Log at EVENT level (always visible) that RDMA listener is up */
+	/* Log at EVENT level that RDMA listener is up */
 	__warnx(TIRPC_DEBUG_FLAG_EVENT,
-		"%s() RDMA: NFS/RDMA server is now listening on node %s port %s"
-		" (backlog=%d sq_depth=%d rq_depth=%d)",
+		"%s() RDMA: NFS/RDMA server is now listening on node %s port %s (backlog=%d sq_depth=%d rq_depth=%d)",
 		__func__,
 		rdma_xprt->xa->node ? rdma_xprt->xa->node : "*",
 		rdma_xprt->xa->port,
