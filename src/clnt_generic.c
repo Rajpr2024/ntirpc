@@ -502,7 +502,13 @@ clnt_req_callback(struct clnt_req *cc)
 	if (cc->cc_clnt->rdma_clnt) {
 		rdma_clnt_req_expire_insert(cc);
 	} else {
-		svc_rqst_expire_insert(cc);
+		struct cx_data *cx = CX_DATA(cc->cc_clnt);
+
+		/* Shared-session VC clients have ev_p; standalone callback
+		 * sockets (v4.0) do not and use CLNT_CALL_WAIT instead.
+		 */
+		if (cx->cx_rec->ev_p)
+			svc_rqst_expire_insert(cc);
 	}
 
 	return CLNT_CALL_ONCE(cc);
